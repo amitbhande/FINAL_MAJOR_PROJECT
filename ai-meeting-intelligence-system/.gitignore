@@ -1,0 +1,12 @@
+.env
+.env.local
+.venv
+__pycache__/
+*.pyc
+
+frontend/.next/
+frontend/node_modules/
+
+backend/storage/chroma/
+backend/storage/uploads/
+

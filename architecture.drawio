@@ -1,0 +1,67 @@
+<mxfile host="app.diagrams.net" modified="2025-12-16T00:00:00Z" agent="quant-demo" version="24.7.0">
+  <diagram id="quant-architecture" name="Page-1">
+    <mxGraphModel dx="827" dy="511" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Binance -->
+        <mxCell id="binance" value="Binance WebSocket Trades" style="shape=cloud;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="180" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Ingestor -->
+        <mxCell id="ingestor" value="BinanceIngestor&#10;(async WebSocket client)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="280" y="80" width="220" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- DataStore / DB -->
+        <mxCell id="datastore" value="DataStore&#10;(SQLAlchemy on SQLite ticks.db)" style="shape=process;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="560" y="80" width="220" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Analytics Engine -->
+        <mxCell id="engine" value="AnalyticsEngine&#10;- Resampling (1s/1m/5m)&#10;- OLS hedge ratio&#10;- Spread &amp; Z-score&#10;- ADF test, rolling corr" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="280" y="220" width="220" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- Dash Frontend -->
+        <mxCell id="frontend" value="Dash Frontend (app.py)&#10;- Controls: symbols, timeframe, window, alerts&#10;- Live charts: prices, spread, z-score, corr&#10;- ADF trigger&#10;- CSV upload &amp; download" style="swimlane;whiteSpace=wrap;html=1;horizontal=1;rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="560" y="220" width="260" height="180" as="geometry" />
+        </mxCell>
+
+        <!-- User -->
+        <mxCell id="user" value="Trader / Researcher&#10;(Browser)" style="shape=actor;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="40" y="260" width="60" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="e1" value="trade stream" style="endArrow=block;html=1;strokeColor=#6c8ebf;" edge="1" parent="1" source="binance" target="ingestor">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e2" value="insert_tick" style="endArrow=block;html=1;strokeColor=#d6b656;" edge="1" parent="1" source="ingestor" target="datastore">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e3" value="get_ticks_df" style="endArrow=block;html=1;strokeColor=#b85450;" edge="1" parent="1" source="frontend" target="datastore">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e4" value="resample &amp; pair analytics" style="endArrow=block;html=1;strokeColor=#82b366;" edge="1" parent="1" source="frontend" target="engine">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e5" value="charts, stats, alerts" style="endArrow=block;html=1;strokeColor=#9673a6;" edge="1" parent="1" source="frontend" target="user">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e6" value="controls, uploads" style="endArrow=block;html=1;strokeColor=#9673a6;" edge="1" parent="1" source="user" target="frontend">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+
+

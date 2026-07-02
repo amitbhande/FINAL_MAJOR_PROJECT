@@ -1,0 +1,6 @@
+# Optional: per-speaker labels (WhisperX + pyannote). Large install (PyTorch, etc.).
+# 1) pip install -r requirements-diarization.txt
+# 2) Create a Hugging Face token and accept the model terms:
+#    https://huggingface.co/pyannote/speaker-diarization-community-1
+# 3) Set in .env: ENABLE_SPEAKER_DIARIZATION=true and HUGGINGFACE_TOKEN=...
+whisperx>=3.1.1
